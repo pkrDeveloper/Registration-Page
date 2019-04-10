@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+div.c {
+  text-align: right;
+}
+/* Style all input fields */
+input {
+  width: 90%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Style the container for inputs */
+.container {
+  background-color: #f1f1f1;
+  border: 2px solid black;
+  padding: 10px;
+  background: url(iiip.jpg);
+  background-repeat: no-repeat;
+  background-size: 2500px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+#message p {
+  padding: 5px 15px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
+</head>
+<SCRIPT>
+	function doClear()
+		{		 
+		  	document.mainform.BudgetAmtPDay.value = "";
+		  	document.mainform.BudgetAmtPTrip.value = "";
+		}
+  function doSubmit()
+		{
+			var strErrMsg;
+			strErrMsg = "";			
+			strErrMsg = doValidations();
+			if (strErrMsg == "" )
+			{				
+				document.mainform.action = "index.html";				
+				document.mainform.submit();
+			}
+			else
+			{alert(strErrMsg);}
+		}
+		function doValidations()
+		{
+			var ddIndex;
+			var strTemp;
+			var strFld;
+			var frmDoc;
+			var strErrMsg;
+			strErrMsg = "";
+			frmDoc = document.mainform;			
+			strFld = frmDoc.loginid;
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter LoginID\n";
+			strFld = frmDoc.pswd
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter Your Password\n";
+			strTemp = frmDoc.confpswd
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please reenter your Password\n";
+			if (strFld.value != strTemp.value)
+			{
+				 strErrMsg = strErrMsg + "Your password doesn't match\n";
+				 frmDoc.confpswd.value="";
+			}
+			strFld = frmDoc.answer
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter youe security answer\n";
+			strFld = frmDoc.fname
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter youe first name\n";
+			strFld = frmDoc.lname
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter youe last name\n";
+			strFld = frmDoc.add1
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter first line of your address\n";
+			strFld = frmDoc.add2
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter second line of your address\n";
+			strFld = frmDoc.city
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter your city\n";
+			strFld = frmDoc.pin
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter your postal code\n";
+			strFld = frmDoc.cno
+			if (strFld.value == "") strErrMsg = strErrMsg + "Please enter your contact number\n";				
+			strFld = frmDoc.mailid
+			if (strFld.value == "")
+			{strErrMsg = strErrMsg = strErrMsg + "Please enter Email ID\n";}
+			else
+			{
+			var strEmail=frmDoc.mailid.value;
+			var pos1=strEmail.indexOf("@")
+			var pos2=strEmail.indexOf(".")
+			if (pos1>=0 && pos2>=0){}else{strErrMsg = strErrMsg + "Please enter  valid Email ID\n";}
+			}		
+			return strErrMsg;
+		}
+		
+		function myFunction() {
+  var x = document.getElementById("pswd");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+function myFunction1() {
+  var x = document.getElementById("confpswd");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+</SCRIPT>
+<body LEFTMARGIN=0 TOPMARGIN=0>
+<div class="container">
+<TABLE WIDTH=580 align=center cellspacing=0 cellpadding=0 style="font:bold 11px verdana">
+<TR><Th><font size="5"><u><BR><B><center>Registration Page</center></B><BR></u></TD></TR></TABLE>
+<FORM name=mainform method=post action="">
+<table cellspacing=0 cellpadding=4>
+<TR>
+	<TD align=right>Customer Id&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input id="loginid" type="text" class=input>
+		</TR>
+		
+		<TR>
+			<td align=right >Password&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			
+			<td><input type="password" id="pswd" class=input required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"><th> <input type="checkbox" onclick="myFunction()">Show Password</th></TD></TR>
+			
+		<TR>
+			<td align=right>Retype Password&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<td><input type="password" id="confpswd" class=input required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" ></TD></TR>
+<TR>
+	<div id="message">
+	<div class="c">
+  <h3>Password must contain the following:</h3>
+  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+  <p id="number" class="invalid">A <b>number</b></p>
+  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+  </TR>
+</div>
+</div>
+
+<script>
+var myInput = document.getElementById("pswd");
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+
+// When the user clicks on the password field, show the message box
+myInput.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput.onblur = function() {
+  document.getElementById("message").style.display = "none";
+}
+
+// When the user starts to type something inside the password field
+myInput.onkeyup = function() {
+  // Validate lowercase letters
+  var lowerCaseLetters = /[a-z]/g;
+  if(myInput.value.match(lowerCaseLetters)) {  
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+  } else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+  }
+  
+  // Validate capital letters
+  var upperCaseLetters = /[A-Z]/g;
+  if(myInput.value.match(upperCaseLetters)) {  
+    capital.classList.remove("invalid");
+    capital.classList.add("valid");
+  } else {
+    capital.classList.remove("valid");
+    capital.classList.add("invalid");
+  }
+
+  // Validate numbers
+  var numbers = /[0-9]/g;
+  if(myInput.value.match(numbers)) {  
+    number.classList.remove("invalid");
+    number.classList.add("valid");
+  } else {
+    number.classList.remove("valid");
+    number.classList.add("invalid");
+  }
+  
+  // Validate length
+  if(myInput.value.length >= 8) {
+    length.classList.remove("invalid");
+    length.classList.add("valid");
+  } else {
+    length.classList.remove("valid");
+    length.classList.add("invalid");
+  }
+}
+</script>
+
+
+		</TR>
+		</div>
+		<TR>
+			<td align=right>SecurityQuestion&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+	       <TD><select name=security_question>
+          <option value=1 selected>What is your preferred internet password?</option>
+          <option value=2>What is the name of the street where you grew up?</option>
+          <option value=4>What is the name of your favorite restaurant?</option>
+          <option value=5>What is your favorite movie?</option>
+          <option value=6>What is the name of your favorite cartoon character?</option>
+          <option value=7>Who is your favorite fictional character?</option>
+          <option value=8>Where did you go on your first date?</option>
+          <option value=9>What is your favorite pet's name?</option>
+          <option value=11>What is your best friend's last name?</option>
+	       </select></TD></TR>
+   		<TR>
+			<td align=right>Hint Answer&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<td><input type=password name=answer class=input></TD></TR>
+		<TR>
+			<TD align=right>First Name&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input name="fname" type="text" class=input>
+		</TR>
+	<TR>
+			<TD align=right>Middle Name&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input name="mname" type="text" class=input>
+		</TR>
+	<TR>
+			<TD align=right>Last name&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input name="lname" type="text" class=input>
+		</TR>
+		<TR>
+			<TD align=right>Sex&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><select name=sex>
+          <option value="M" selected>MALE</option>
+          <option value="F">FEMALE</option>
+        </select></TD></TR>
+		<TR>
+			<TD align=right>Date of Birth&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input name="dob"id="dob"type="date"class=input></td>
+            </tr>
+			<TR>
+			<TD align=right>Line #1 Address (or P.O. Box):&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input class=input name=add1></TD></TR>
+			<TD align=right>Line #2 Address (include Apt #):&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input class=input name=add2></TD></TR>
+			<TR><TD align=right>City:&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input class=input name=city></TD></TR>
+			<TR><TD align=right>State:&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><select name=state size="1">
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="ND" selected>New Delhi</option>
+                  <option value="PB">Punjab</option>
+                  <option value="HR">Hariyana</option>
+                  <option value="HP">Himanchal Pradesh</option>
+                  <option value="GJ">Gujrat</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="BR">Bihar</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="KA">Karnatka</option>
+                  <option value="KR">Kerala</option>
+                  <option value="UP">Uttar Pradesh</option>
+                </select></TD></TR>
+               <TD align=right>Zip:&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input class=input name=pin></TD></TR>
+			<TR><TD align=right>Contact No&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input class=input name=cno></TD></TR>
+			<TR><TD align=right>Email-Id for Correspondance&nbsp;&nbsp;:&nbsp;&nbsp;</TD>
+			<TD><input class=input name=mailid></TD></TR>
+			<TR><TD>&nbsp;</TD><TD> 
+			<input type=checkbox name=flag>Yes, I would like to hear more about 
+                priceline's<br>
+                upcoming services and special promotions.</TD></TR>
+<TR><Td colspan=2 align=center><a href="javascript:doSubmit()">Register</A>
+</TD></TR></tABLE></form></body>
+</html>
